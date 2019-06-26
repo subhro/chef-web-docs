@@ -28,14 +28,14 @@ The full syntax for all of the properties that are available to the **dnf_packag
 .. code-block:: ruby
 
   dnf_package 'name' do
-    arch                         String, Array
-    flush_cache                  Hash # default value: {"before"=>false, "after"=>false}
-    options                      String, Array
-    package_name                 String, Array
-    source                       String
-    timeout                      String, Integer
-    version                      String, Array
-    action                       Symbol # defaults to :install if not specified
+    arch              String, Array
+    flush_cache       Hash # default value: {"before"=>false, "after"=>false}
+    options           String, Array
+    package_name      String, Array
+    source            String
+    timeout           String, Integer
+    version           String, Array
+    action            Symbol # defaults to :install if not specified
   end
 
 where:
@@ -125,12 +125,12 @@ The dnf_package resource has the following properties:
 ``package_name``
    **Ruby Type:** String, Array
 
-   One of the following: the name of a package, the name of a package and its architecture, the name of a dependency. Default value: the ``name`` of the resource block. See "Syntax" section above for more information.
+   An optional property to set the package name if it differs from the resource block's name.
 
 ``source``
    **Ruby Type:** String
 
-   Optional. The path to a package in the local file system.
+   The optional path to a package on the local file system.
 
 ``timeout``
    **Ruby Type:** String, Integer
@@ -337,6 +337,7 @@ A guard property can be used to evaluate the state of a node during the executio
 A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the Chef Infra Client to do nothing.
 
 .. end_tag
+
 .. tag resources_common_guards_properties
 
 The following properties can be used to define a guard that is evaluated during the execution phase of the Chef Infra Client run:

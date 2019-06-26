@@ -1,52 +1,41 @@
 =====================================================
-openssl_x509_request resource
+chocolatey_feature resource
 =====================================================
-`[edit on GitHub] <https://github.com/chef/chef-web-docs/blob/master/chef_master/source/resource_openssl_x509_request.rst>`__
+`[edit on GitHub] <https://github.com/chef/chef-web-docs/blob/master/chef_master/source/resource_chocolatey_feature.rst>`__
 
-Use the **openssl_x509_request** resource to generate PEM-formatted x509 certificates requests. If no existing key is specified, the resource will automatically generate a passwordless key with the certificate.
+Use the **chocolatey_feature** resource to enable and disable Chocolatey features.
 
-**New in Chef Infra Client 14.4.**
+**New in Chef Infra Client 15.1.**
 
 Syntax
 =====================================================
-The openssl_x509_request resource has the following syntax:
+The chocolatey_feature resource has the following syntax:
 
 .. code-block:: ruby
 
-  openssl_x509_request 'name' do
-    city             String
-    common_name      String
-    country          String
-    email            String
-    group            String, Integer
-    key_curve        String # default value: "prime256v1"
-    key_file         String
-    key_length       Integer # default value: 2048
-    key_pass         String
-    key_type         String # default value: "ec"
-    mode             Integer, String
-    org              String
-    org_unit         String
-    owner            String, Integer
-    path             String # default value: 'name' unless specified
-    state            String
-    action           Symbol # defaults to :create if not specified
+  chocolatey_feature 'name' do
+    feature_name       String # default value: 'name' unless specified
+    feature_state      true, false # default value: false
+    action             Symbol # defaults to :enable if not specified
   end
 
 where:
 
-* ``openssl_x509_request`` is the resource.
+* ``chocolatey_feature`` is the resource.
 * ``name`` is the name given to the resource block.
 * ``action`` identifies which steps the Chef Infra Client will take to bring the node into the desired state.
-* ``city``, ``common_name``, ``country``, ``email``, ``group``, ``key_curve``, ``key_file``, ``key_length``, ``key_pass``, ``key_type``, ``mode``, ``org``, ``org_unit``, ``owner``, ``path``, and ``state`` are the properties available to this resource.
+* ``feature_name`` and ``feature_state`` are the properties available to this resource.
 
 Actions
 =====================================================
 
-The openssl_x509_request resource has the following actions:
+The chocolatey_feature resource has the following actions:
 
-``:create``
-   Default. Create the certificate request file.
+``:disable``
+    Disable a Chocolatey Feature.
+
+``:enable``
+    Enable a Chocolatey Feature.
 
 ``:nothing``
    .. tag resources_common_actions_nothing
@@ -58,87 +47,12 @@ The openssl_x509_request resource has the following actions:
 Properties
 =====================================================
 
-The openssl_x509_request resource has the following properties:
+The chocolatey_feature resource has the following properties:
 
-``city``
-   **Ruby Type:** String
-
-   Value for the ``L`` certificate field.
-
-``common_name``
-   **Ruby Type:** String | ``REQUIRED``
-
-   Value for the ``CN`` certificate field.
-
-``country``
-   **Ruby Type:** String
-
-   Value for the ``C`` certificate field.
-
-``email``
-   **Ruby Type:** String
-
-   Value for the ``email`` certificate field.
-
-``group``
-   **Ruby Type:** String, Integer
-
-   The group ownership applied to all files created by the resource.
-
-``key_curve``
-   **Ruby Type:** String | **Default Value:** ``"prime256v1"``
-
-   The desired curve of the generated key (if key_type is equal to 'ec'). Run ``openssl ecparam -list_curves`` to see available options.
-
-``key_file``
-   **Ruby Type:** String
-
-   The path to a certificate key file on the filesystem. If the key_file property is specified, the resource will attempt to source a key from this location. If no key file is found, the resource will generate a new key file at this location. If the key_file property is not specified, the resource will generate a key file in the same directory as the generated certificate, with the same name as the generated certificate.
-
-``key_length``
-   **Ruby Type:** Integer | **Default Value:** ``2048``
-
-   The desired bit length of the generated key (if key_type is equal to 'rsa'). Available options are ``1024``, ``2048``, ``4096``, and ``8192``.
-
-``key_pass``
-   **Ruby Type:** String
-
-   The passphrase for an existing key's passphrase.
-
-``key_type``
-   **Ruby Type:** String | **Default Value:** ``"ec"``
-
-   The desired type of the generated key (rsa or ec).
-
-``mode``
-   **Ruby Type:** Integer, String
-
-   The permission mode applied to all files created by the resource.
-
-``org``
-   **Ruby Type:** String
-
-   Value for the ``O`` certificate field.
-
-``org_unit``
-   **Ruby Type:** String
-
-   Value for the ``OU`` certificate field.
-
-``owner``
-   **Ruby Type:** String, Integer
-
-   The owner applied to all files created by the resource.
-
-``path``
+``feature_name``
    **Ruby Type:** String | **Default Value:** ``The resource block's name``
 
-   An optional property for specifying the path to write the file to if it differs from the resource block's name.
-
-``state``
-   **Ruby Type:** String
-
-   Value for the ``ST`` certificate field.
+   The name of the Chocolatey feature to enable or disable.
 
 Common Resource Functionality
 =====================================================
@@ -176,7 +90,6 @@ The following properties are common to every resource:
 
 Notifications
 -----------------------------------------------------
-
 ``notifies``
   **Ruby Type:** Symbol, 'Chef::Resource[String]'
 
@@ -285,18 +198,3 @@ The following properties can be used to define a guard that is evaluated during 
   Allow a resource to execute only if the condition returns ``true``.
 
 .. end_tag
-
-
-Examples
-=====================================================
-
-**Create a certificate request file**
-
-.. code-block:: ruby
-
-  openssl_x509_request '/etc/ssl_test/my_ec_request.csr' do
-    common_name 'myecrequest.example.com'
-    org 'Test Kitchen Example'
-    org_unit 'Kitchens'
-    country 'UK'
-  end

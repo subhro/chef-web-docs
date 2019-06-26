@@ -89,12 +89,12 @@ The git resource has the following properties:
 ``depth``
    **Ruby Type:** Integer
 
-   The number of past revisions to be included in the git shallow clone. The default behavior will do a full clone.
+   The number of past revisions to be included in the git shallow clone. Unless specified the default behavior will do a full clone.
 
 ``destination``
    **Ruby Type:** String | **Default Value:** ``The resource block's name``
 
-   The location path to which the source is to be cloned, checked out, or exported. Default value: the ``name`` of the resource block. See "Syntax" section above for more information.
+   The location path to which the source is to be cloned, checked out, or exported. Default value: the ``name`` of the resource block.
 
 ``enable_checkout``
    **Ruby Type:** true, false | **Default Value:** ``true``
@@ -293,6 +293,7 @@ A guard property can be used to evaluate the state of a node during the executio
 A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the Chef Infra Client to do nothing.
 
 .. end_tag
+
 .. tag resources_common_guards_properties
 
 The following properties can be used to define a guard that is evaluated during the execution phase of the Chef Infra Client run:

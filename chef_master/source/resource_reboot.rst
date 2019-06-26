@@ -17,7 +17,7 @@ The reboot resource has the following syntax:
 
   reboot 'name' do
     delay_mins      Integer # default value: 0
-    reason          String # default value: "Reboot by Chef"
+    reason          String # default value: "Reboot by Chef Infra Client"
     action          Symbol # defaults to :nothing if not specified
   end
 
@@ -60,7 +60,7 @@ The reboot resource has the following properties:
    The amount of time (in minutes) to delay a reboot request.
 
 ``reason``
-   **Ruby Type:** String | **Default Value:** ``"Reboot by Chef"``
+   **Ruby Type:** String | **Default Value:** ``"Reboot by Chef Infra Client"``
 
    A string that describes the reboot action.
 
@@ -198,6 +198,7 @@ A guard property can be used to evaluate the state of a node during the executio
 A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the Chef Infra Client to do nothing.
 
 .. end_tag
+
 .. tag resources_common_guards_properties
 
 The following properties can be used to define a guard that is evaluated during the execution phase of the Chef Infra Client run:

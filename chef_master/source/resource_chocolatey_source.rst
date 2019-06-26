@@ -3,7 +3,7 @@ chocolatey_source resource
 =====================================================
 `[edit on GitHub] <https://github.com/chef/chef-web-docs/blob/master/chef_master/source/resource_chocolatey_source.rst>`__
 
-Use the **chocolatey_source** resource to add or remove Chocolatey sources.
+Use the **chocolatey_source** resource to add, remove, enable, or disable Chocolatey sources.
 
 **New in Chef Infra Client 14.3.**
 
@@ -14,11 +14,13 @@ The chocolatey_source resource has the following syntax:
 .. code-block:: ruby
 
   chocolatey_source 'name' do
-    bypass_proxy      true, false # default value: false
-    priority          Integer # default value: 0
-    source            String
-    source_name       String # default value: 'name' unless specified
-    action            Symbol # defaults to :add if not specified
+    admin_only              true, false # default value: false
+    allow_self_service      true, false # default value: false
+    bypass_proxy            true, false # default value: false
+    priority                Integer # default value: 0
+    source                  String
+    source_name             String # default value: 'name' unless specified
+    action                  Symbol # defaults to :add if not specified
   end
 
 where:
@@ -36,6 +38,16 @@ The chocolatey_source resource has the following actions:
 ``:add``
    Default. Adds a Chocolatey source.
 
+``:disable``
+   Disables a Chocolatey source.
+    
+   **New in Chef Infra Client 15.1.**
+
+``:enable``
+   Enables a Chocolatey source.
+    
+   **New in Chef Infra Client 15.1.**
+
 ``:remove``
    Removes a Chocolatey source.
 
@@ -50,6 +62,20 @@ Properties
 =====================================================
 
 The chocolatey_source resource has the following properties:
+
+``admin_only``
+   **Ruby Type:** true, false | **Default Value:** ``false``
+
+   Whether or not to set the source to be accessible to only admins.
+
+   *New in Chef Infra Client 15.1.*
+
+``allow_self_service``
+   **Ruby Type:** true, false | **Default Value:** ``false``
+
+   Whether or not to set the source to be used for self service.
+
+   *New in Chef Infra Client 15.1.*
 
 ``bypass_proxy``
    **Ruby Type:** true, false | **Default Value:** ``false``
@@ -203,6 +229,7 @@ A guard property can be used to evaluate the state of a node during the executio
 A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the Chef Infra Client to do nothing.
 
 .. end_tag
+
 .. tag resources_common_guards_properties
 
 The following properties can be used to define a guard that is evaluated during the execution phase of the Chef Infra Client run:

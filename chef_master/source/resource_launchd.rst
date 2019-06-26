@@ -29,6 +29,7 @@ The launchd resource has the following syntax:
     init_groups                     true, false
     keep_alive                      true, false, Hash
     label                           String # default value: 'name' unless specified
+    launch_events                   Hash
     launch_only_once                true, false
     ld_group                        String
     limit_load_from_hosts           Array
@@ -233,6 +234,13 @@ The following resource properties may be used to define keys in the XML property
    **Ruby Type:** true, false, Hash | **Default Value:** ``false``
 
    Keep a job running continuously (``true``) or allow demand and conditions on the node to determine if the job keeps running (``false``).
+
+``launch_events``
+   **Ruby Type:** Hash
+
+   Specify higher-level event types to be used as launch-on-demand event sources.
+
+   *New in Chef Infra Client 15.1.*
 
 ``launch_only_once``
    **Ruby Type:** true, false
@@ -511,6 +519,7 @@ A guard property can be used to evaluate the state of a node during the executio
 A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the Chef Infra Client to do nothing.
 
 .. end_tag
+
 .. tag resources_common_guards_properties
 
 The following properties can be used to define a guard that is evaluated during the execution phase of the Chef Infra Client run:

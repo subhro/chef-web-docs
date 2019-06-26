@@ -29,14 +29,14 @@ The full syntax for all of the properties that are available to the **paludis_pa
 
 .. code-block:: ruby
 
-   paludis_package 'name' do
-     options                    String
-     package_name               String, Array # defaults to 'name' if not specified
-     source                     String
-     timeout                    String, Integer
-     version                    String, Array
-     action                     Symbol # defaults to :install if not specified
-   end
+  paludis_package 'name' do
+    options           String
+    package_name      String, Array
+    source            String
+    timeout           Integer # default value: 3600
+    version           String, Array
+    action            Symbol # defaults to :install if not specified
+  end
 
 where:
 
@@ -231,6 +231,7 @@ A guard property can be used to evaluate the state of a node during the executio
 A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the Chef Infra Client to do nothing.
 
 .. end_tag
+
 .. tag resources_common_guards_properties
 
 The following properties can be used to define a guard that is evaluated during the execution phase of the Chef Infra Client run:
