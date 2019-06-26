@@ -50,7 +50,7 @@ where:
 
 * ``ifconfig`` is the resource.
 * ``name`` is the name given to the resource block.
-* ``action`` identifies which steps the chef-client will take to bring the node into the desired state.
+* ``action`` identifies which steps the Chef Infra Client will take to bring the node into the desired state.
 * ``bcast``, ``bonding_opts``, ``bootproto``, ``device``, ``ethtool_opts``, ``family``, ``gateway``, ``hwaddr``, ``inet_addr``, ``mask``, ``master``, ``metric``, ``mtu``, ``network``, ``onboot``, ``onparent``, ``slave``, ``target``, and ``vlan`` are the properties available to this resource.
 
 Actions
@@ -92,7 +92,7 @@ The ifconfig resource has the following properties:
 
    Bonding options to pass via ``BONDING_OPTS`` on RHEL and CentOS. For example: ``mode=active-backup miimon=100``
 
-   *New in Chef Client 13.4.*
+   *New in Chef Infra Client 13.4.*
 
 ``bootproto``
    **Ruby Type:** String
@@ -109,21 +109,21 @@ The ifconfig resource has the following properties:
 
    Options to be passed to ethtool(8). For example: ``-A eth0 autoneg off rx off tx off``
 
-   *New in Chef Client 13.4.*
+   *New in Chef Infra Client 13.4.*
 
 ``family``
    **Ruby Type:** String | **Default Value:** ``"inet"``
 
    Networking family option for Debian-based systems; for example: ``inet`` or ``inet6``.
 
-   *New in Chef Client 14.0.*
+   *New in Chef Infra Client 14.0.*
 
 ``gateway``
    **Ruby Type:** String
 
    The gateway to use for the interface.
 
-   *New in Chef Client 14.4.*
+   *New in Chef Infra Client 14.4.*
 
 ``hwaddr``
    **Ruby Type:** String
@@ -145,7 +145,7 @@ The ifconfig resource has the following properties:
 
    Specifies the channel bonding interface to which the Ethernet interface is linked.
 
-   *New in Chef Client 13.4.*
+   *New in Chef Infra Client 13.4.*
 
 ``metric``
    **Ruby Type:** String
@@ -177,7 +177,7 @@ The ifconfig resource has the following properties:
 
    When set to ``yes``, this device is controlled by the channel bonding interface that is specified via the ``master`` property.
 
-   *New in Chef Client 13.4.*
+   *New in Chef Infra Client 13.4.*
 
 ``target``
    **Ruby Type:** String | **Default Value:** ``The resource block's name``
@@ -189,7 +189,7 @@ The ifconfig resource has the following properties:
 
    The VLAN to assign the interface to.
 
-   *New in Chef Client 14.4.*
+   *New in Chef Infra Client 14.4.*
 
 Common Resource Functionality
 =====================================================
@@ -221,7 +221,7 @@ The following properties are common to every resource:
 ``sensitive``
   **Ruby Type:** true, false | **Default Value:** ``false``
 
-  Ensure that sensitive resource data is not logged by the chef-client.
+  Ensure that sensitive resource data is not logged by the Chef Infra Client.
 
 .. end_tag
 
@@ -238,13 +238,13 @@ Notifications
 
 .. tag resources_common_notification_timers
 
-A timer specifies the point during the Chef Client run at which a notification is run. The following timers are available:
+A timer specifies the point during the Chef Infra Client run at which a notification is run. The following timers are available:
 
 ``:before``
    Specifies that the action on a notified resource should be run before processing the resource block in which the notification is located.
 
 ``:delayed``
-   Default. Specifies that a notification should be queued up, and then executed at the end of the Chef Client run.
+   Default. Specifies that a notification should be queued up, and then executed at the end of the Chef Infra Client run.
 
 ``:immediate``, ``:immediately``
    Specifies that a notification should be run immediately, per resource notified.
@@ -287,13 +287,13 @@ In this case the ``subscribes`` property reloads the ``nginx`` service whenever 
 
 .. tag resources_common_notification_timers
 
-A timer specifies the point during the Chef Client run at which a notification is run. The following timers are available:
+A timer specifies the point during the Chef Infra Client run at which a notification is run. The following timers are available:
 
 ``:before``
    Specifies that the action on a notified resource should be run before processing the resource block in which the notification is located.
 
 ``:delayed``
-   Default. Specifies that a notification should be queued up, and then executed at the end of the Chef Client run.
+   Default. Specifies that a notification should be queued up, and then executed at the end of the Chef Infra Client run.
 
 ``:immediate``, ``:immediately``
    Specifies that a notification should be run immediately, per resource notified.
@@ -315,17 +315,17 @@ Guards
 
 .. tag resources_common_guards
 
-A guard property can be used to evaluate the state of a node during the execution phase of the chef-client run. Based on the results of this evaluation, a guard property is then used to tell the chef-client if it should continue executing a resource. A guard property accepts either a string value or a Ruby block value:
+A guard property can be used to evaluate the state of a node during the execution phase of the Chef Infra Client run. Based on the results of this evaluation, a guard property is then used to tell the Chef Infra Client if it should continue executing a resource. A guard property accepts either a string value or a Ruby block value:
 
 * A string is executed as a shell command. If the command returns ``0``, the guard is applied. If the command returns any other value, then the guard property is not applied. String guards in a **powershell_script** run Windows PowerShell commands and may return ``true`` in addition to ``0``.
 * A block is executed as Ruby code that must return either ``true`` or ``false``. If the block returns ``true``, the guard property is applied. If the block returns ``false``, the guard property is not applied.
 
-A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the chef-client to do nothing.
+A guard property is useful for ensuring that a resource is idempotent by allowing that resource to test for the desired state as it is being executed, and then if the desired state is present, for the Chef Infra Client to do nothing.
 
 .. end_tag
 .. tag resources_common_guards_properties
 
-The following properties can be used to define a guard that is evaluated during the execution phase of the chef-client run:
+The following properties can be used to define a guard that is evaluated during the execution phase of the Chef Infra Client run:
 
 ``not_if``
   Prevent a resource from executing when the condition returns ``true``.
